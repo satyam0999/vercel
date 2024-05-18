@@ -1,0 +1,146 @@
+<ng-container *ngIf="!loading">
+  <div *ngIf="!courseResults">
+    <p class="text-3xl font-bold flex justify-center mb-4">
+      University Recommendation System
+    </p>
+    <div class="flex justify-center mt-2">
+      <div
+        class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
+      >
+        <div class="space-y-4">
+          <h5 class="text-xl font-medium text-gray-900 dark:text-white">
+            Choose your Preffered Options
+          </h5>
+          <div>
+            <label
+              for="country"
+              class="block mb-2 ml-3 text-sm font-medium text-gray-900"
+              >Country<span class="text-red-500">*</span></label
+            >
+            <select
+              id="country"
+              name="country"
+              required
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              <option value="">Select Country</option>
+              <option value="GERMANY">GERMANY</option>
+            </select>
+          </div>
+          <form
+            [formGroup]="angForm"
+            (ngSubmit)="onSubmit()"
+            autocomplete="off"
+            class="grid grid-cols-12 gap-4"
+          >
+            <div class="col-span-12">
+              <label
+                for="domain"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                
+                >Domain<span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="domain"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="domain"
+                formControlName="domain"
+                placeholder=" e.g., Finance, Computer, Data "
+              />
+            </div>
+            <div class="col-span-6">
+              <label
+                for="studyLevel"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Study Level<span class="text-red-500">*</span></label
+              >
+              <select
+                id="studyLevel"
+                class="form-control"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="studyLevel"
+                formControlName="studyLevel"
+                
+              >
+                <option value="">Select Study Level</option>
+                <option value="Postgraduate">Postgraduate</option>
+                <option value="Undergraduate">Undergraduate</option>
+              </select>
+            </div>
+            <div class="col-span-6">
+              <label
+                for="course"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Degree (Optional)</label
+              >
+              <input
+                type="text"
+                id="degree"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="degree"
+                placeholder="e.g. MSc, MBA"
+                formControlName="degree"
+              />
+            </div>
+
+            <div class="col-span-6">
+              <label
+                for="test_type"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select Test (Optional)</label
+              >
+              <select
+                id="test_type"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                name="test_type"
+                formControlName="test_type"
+              >
+                <option value="">-- Select Test --</option>
+                <option value="toefl">TOEFL</option>
+                <option value="ielts">IELTS</option>
+              </select>
+            </div>
+            <div class="col-span-6">
+              <label
+                for="test_score"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Test Score</label
+              >
+              <input
+                type="number"
+                id="test_score"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                name="test_score"
+                placeholder="Optional"
+                formControlName="test_score"
+              />
+            </div>
+            <button
+              type="submit"
+              class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 col-span-12"
+            >
+              Submit
+            </button>
+          </form>
+          <!-- <button
+            type="submit"
+            (click)="onLoadSubmit('ss')"
+            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 col-span-12"
+          >
+            Load Sample
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-course-results
+    *ngIf="courseResults"
+    [config]="courseResults"
+    [formData]="angForm.value"
+  ></app-course-results>
+</ng-container>
+<ng-container *ngIf="loading">
+  <h3 class="font-3xl">Loading.......</h3>
+</ng-container>
